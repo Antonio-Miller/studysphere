@@ -33,7 +33,7 @@ Thank you!
 
 * António Miller up202008423@up.pt
 * Bernardo Neves up202307553@up.pt
-* Donovan Hele 
+* Donovan Hele up202309344@up.pt
 * Pedro Salgado up202204914@up.pt
 
 ---
