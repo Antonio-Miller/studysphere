@@ -33,8 +33,8 @@ Thank you!
 
 * António Miller up202008423@up.pt
 * Bernardo Neves up202307553@up.pt
-* Donovan Hele up202309344@up.pt
-* Pedro Salgado up202204914@up.pt
+* Donovan Hele up202309344@up.pt  
+* Pedro Salgado up202204914@up.pt.
 
 ---
 ## Business Modelling
@@ -43,6 +43,7 @@ Business modeling in software development involves defining the product's vision
 
 ### Product Vision
 
+For students seeking a more collaborative and productive study experience, **StudySphere** is an application that enables the creation of study rooms categorized by subject or simply joining existing ones. In addition to offering a forum for clearing doubts, **StudySphere** provides a student rating system and personalized statistics, ensuring an organized, motivating, and dynamic group study environment.
 <!-- 
 Start by defining a clear and concise vision for your app, to help members of the team, contributors, and users into focusing their often disparate views into a concise, visual, and short textual form. 
 
@@ -64,6 +65,22 @@ To learn more about how to write a good product vision, please see:
 
 
 ### Features and Assumptions
+**User Authentication** –> Students can log in securely to maintain personalized data and preferences.
+
+**Study Room Management** –> Ability to create, categorize by subject, and join existing study rooms.
+
+**Forums for Doubts** –> Allows students to post and answer questions, enhancing collaboration and mutual assistance.
+
+**Subject-based Room Categorization** –> Enables students to find and join study rooms relevant to their subjects quickly.
+
+**Peer Rating System** –> Students can rate each other's participation, motivating active engagement and assisting in choosing study partners.
+
+**Personalized Study Statistics** –> Tracks and displays individual statistics on time spent studying per subject, helping students analyze their productivity.
+
+* Students have an institutional email or account to authenticate.
+* Users actively participate in peer-rating, ensuring effective evaluation and reliability.
+* The application relies on consistent internet connectivity.
+* Institutional data (e.g., subjects, courses) is available for room categorization and subject tagging.
 <!-- 
 Indicate an  initial/tentative list of high-level features - high-level capabilities or desired services of the system that are necessary to deliver benefits to the users.
  - Feature XPTO - a few words to briefly describe the feature
