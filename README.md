@@ -1,10 +1,10 @@
 <!-- Template file for README.md for LEIC-ES-2023-24 -->
 
-# _Study Sphere_ Development Report
+# **Study Sphere** Development Report
 
-Welcome to the documentation pages of _Study Sphere_!
+Welcome to the documentation pages of **Study Sphere**!
 
-This Software Development Report, tailored for LEIC-ES-2024-25, provides comprehensive details about _Study Sphere_, from high-level vision to low-level implementation decisions. It’s organised by the following activities. 
+This Software Development Report, tailored for LEIC-ES-2024-25, provides comprehensive details about **Study Sphere**, from high-level vision to low-level implementation decisions. It’s organised by the following activities. 
 
 * [Business modeling](#Business-Modelling) 
   * [Product Vision](#Product-Vision)
@@ -91,6 +91,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are doing
 -->
 
 ### Elevator Pitch
+Are you tired of studying alone or struggling to find study groups? Meet **StudySphere**, the perfect solution for university students craving collaboration and productivity. With **StudySphere**, you can effortlessly create or join study rooms tailored to your subjects, participate in forums to clarify doubts, and even rate your peers' participation. Plus, our personalized study statistics help you track and boost your academic performance. Revolutionize the way you study—join **StudySphere** and unlock the power of group learning today!
 <!-- 
 Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
 
@@ -103,6 +104,20 @@ Take a look at the following links to learn some techniques:
 ## Requirements
 
 ### User Stories
+1) As a **student** I want to Authenticate so that I have personalized data
+
+2) As a **student** I want to create or join a study room so that I can study with company
+
+3) As a **student** I want to create forums so that I can submit  my doubts
+
+4) As a **student** I want to enter a study room accordingly to my subjects so that I can study with others that have already created study rooms<tag/categorize the subject>
+
+5) As a **student** I want to rate my colleagues participation in the study room so that I can motivate them to create more rooms/participate.
+
+6) As a **student** I want to see other students ratings so that I can choose better
+
+7) As a **student** I want to access my statistics so that I can track how much time I’ve been studying for each subject 
+
 <!-- 
 In this section, you should describe all kinds of requirements for your module: functional and non-functional requirements.
 
