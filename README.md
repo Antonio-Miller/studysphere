@@ -91,7 +91,7 @@ Optionally, indicate an initial/tentative list of assumptions that you are doing
 -->
 
 ### Elevator Pitch
-Are you tired of studying alone or struggling to find study groups? Meet **StudySphere**, the perfect solution for university students craving collaboration and productivity. With **StudySphere**, you can effortlessly create or join study rooms tailored to your subjects, participate in forums to clarify doubts, and even rate your peers' participation. Plus, our personalized study statistics help you track and boost your academic performance. Revolutionize the way you study—join **StudySphere** and unlock the power of group learning today!
+Are you tired of studying alone or struggling to find study groups? Meet **StudySphere**, the perfect solution for university students craving collaboration and productivity. With **StudySphere**, you can effortlessly create or join study rooms tailored to your subjects, participate in forums to clarify doubts, and even rate your peers' participation. Plus, our personalized study statistics help you track and boost your academic performance. Revolutionize the way you study, join **StudySphere** and unlock the power of group learning today!
 <!-- 
 Draft a small text to help you quickly introduce and describe your product in a short time (lift travel time ~90 seconds) and a few words (~800 characters), a technique usually known as elevator pitch.
 
