@@ -147,6 +147,14 @@ At the end, it is good to add a rough indication of the value of the user story 
 
 ### Domain model
 
+![Domain Model](images/StudySphere_UML.drawio.png)
+
+**Student**(<ins>id_student</ins>, name, email, password, rating)\
+**Subject**(<ins>id_subject</ins>, name, year)\
+**StudyRoom**(<ins>id_studyroom</ins>, number, id_subject->Subject)\
+**Forum**(<ins>id_forum</ins>, title, descprition, id_subject->Subject)\
+**StudentStatistics**(<ins>id_statistics</ins>, total_study_time, id_student->Student)\
+**Student_StudyRoom**(<ins>id_student</ins>->Student, <ins>id_studyroom</ins>->StudyRoom)
 <!-- 
 To better understand the context of the software system, it is useful to have a simple UML class diagram with all and only the key concepts (names, attributes) and relationships involved of the problem domain addressed by your app. 
 Also provide a short textual description of each concept (domain class). 
