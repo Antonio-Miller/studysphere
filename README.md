@@ -104,19 +104,18 @@ Take a look at the following links to learn some techniques:
 ## Requirements
 
 ### User Stories
-1) As a **student** I want to Authenticate so that I have personalized data
 
-2) As a **student** I want to create or join a study room so that I can study with company
+1) As a **student**, I want to Authenticate so that I have personalized data. ([**Authentication**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/2))
 
-3) As a **student** I want to create forums so that I can submit  my doubts
+2) As a **student**, I want to create or join a study room so that I can study with company. ([**Study Room Creation and Joining**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/1))
 
-4) As a **student** I want to enter a study room accordingly to my subjects so that I can study with others that have already created study rooms<tag/categorize the subject>
+3) As a **student**, I want to create forums so that I can submit my doubts. ([**Forum Creation**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/6))
 
-5) As a **student** I want to rate my colleagues participation in the study room so that I can motivate them to create more rooms/participate.
+4) As a **student**, I want to easily find a study room accordingly to my subjects, so that I can connect with relevant partners. ([Subject-Based Study Rooms](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/3))
 
-6) As a **student** I want to see other students ratings so that I can choose better
+5) As a **student**, I want to rate my colleagues participation in the study room and view their ratings, so that I can encourage active participation and make informed choices about study partners. ([**Colleague Rating**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/4))
 
-7) As a **student** I want to access my statistics so that I can track how much time I’ve been studying for each subject 
+6) As a **student**, I want to access my statistics, so that I can track how much time I’ve been studying for each subject. ([**Statistics Viewer**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/5))
 
 <!-- 
 In this section, you should describe all kinds of requirements for your module: functional and non-functional requirements.
