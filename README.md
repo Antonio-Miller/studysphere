@@ -217,6 +217,8 @@ Example of _UML deployment diagram_ showing a _deployment view_ of the Eletronic
 
 
 ### Vertical prototype
+**Study Room Creation and Joining**
+![print1](images/prototype_prints/Study_Room_Creation_Print1.jpg)
 <!--
 To help on validating all the architectural, design and technological decisions made, we usually implement a vertical prototype, a thin vertical slice of the system integrating as much technologies we can.
 
