@@ -180,7 +180,7 @@ In this section you should start by briefly describing the components of the pro
 
 ### Logical architecture
 
-![UML Package Diagram](images/UML Package Diagram.png)
+![UML Package Diagram](images/UML_Package_Diagram.png)
 
 The **Presentation Layer** includes User UI Components, Tracking UI Components, and Admin UI Components, which represent different user interfaces of the application. The **Business Layer** manages core functionalities, such as User Management, Study Tracking, Challenge System, and Analytics Service, ensuring proper handling of user interactions and logic. Finally, the **Data Layer** consists of repositories and local storage components responsible for storing and retrieving data.
 <!--
