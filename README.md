@@ -34,7 +34,7 @@ Thank you!
 * António Miller up202008423@up.pt
 * Bernardo Neves up202307553@up.pt
 * Donovan Hele up202309344@up.pt  
-* Pedro Salgado up202204914@up.pt.
+* Pedro Salgado up202204914@up.pt
 
 ---
 ## Business Modelling
@@ -155,7 +155,7 @@ At the end, it is good to add a rough indication of the value of the user story 
 
 ![Domain Model](images/StudySphere_UML.drawio.png)
 
-**Student**(<ins>id_student</ins>, name, email, password, rating)\
+>**Student**(<ins>id_student</ins>, name, email, password, rating)\
 **Subject**(<ins>id_subject</ins>, name, year)\
 **StudyRoom**(<ins>id_studyroom</ins>, number, id_subject->Subject)\
 **Forum**(<ins>id_forum</ins>, title, descprition, id_subject->Subject)\
