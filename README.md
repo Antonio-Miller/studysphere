@@ -111,7 +111,7 @@ Take a look at the following links to learn some techniques:
 
 3) As a **student**, I want to create forums so that I can submit my doubts. ([**Forum Creation**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/6))
 
-4) As a **student**, I want to easily find a study room accordingly to my subjects, so that I can connect with relevant partners. ([Subject-Based Study Rooms](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/3))
+4) As a **student**, I want to easily find a study room accordingly to my subjects, so that I can connect with relevant partners. ([**Subject-Based Study Rooms**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/3))
 
 5) As a **student**, I want to rate my colleagues participation in the study room and view their ratings, so that I can encourage active participation and make informed choices about study partners. ([**Colleague Rating**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/4))
 
