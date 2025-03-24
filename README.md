@@ -105,17 +105,23 @@ Take a look at the following links to learn some techniques:
 
 ### User Stories
 
-1) As a **student**, I want to Authenticate so that I have personalized data. ([**Authentication**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/2))
+1) As a **student**, I want to Authenticate so that I have personalized data. ([**Authentication**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/2))  
+   [**Account Creation**](images/mockups/CreateAccount.png) | [**Log In**](images/mockups/LogIn.png)
 
-2) As a **student**, I want to create or join a study room so that I can study with company. ([**Study Room Creation and Joining**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/1))
+2) As a **student**, I want to create or join a study room so that I can study with company. ([**Study Room Creation and Joining**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/1))  
+   [**Home Page**](images/mockups/HomePage.png) | [**Room Creation**](images/mockups/RoomCreation.png)
 
-3) As a **student**, I want to create forums so that I can submit my doubts. ([**Forum Creation**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/6))
+3) As a **student**, I want to create forums so that I can submit my doubts. ([**Forum Creation**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/6))  
+   [**Forum Creation**](images/mockups/ForumCreation.png) | [**Forum Page**](images/mockups/ForumPage.png) | [**Forum Search**](images/mockups/ForumSearch.png)
 
-4) As a **student**, I want to easily find a study room accordingly to my subjects, so that I can connect with relevant partners. ([**Subject-Based Study Rooms**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/3))
+4) As a **student**, I want to easily find a study room accordingly to my subjects, so that I can connect with relevant partners. ([**Subject-Based Study Rooms**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/3))  
+   [**Joining Room (All)**](images/mockups/JoinRoomAll.png) | [**Joining Room (Available)**](images/mockups/JoinRoomAvailable.png) | [**Joining Room (Joined)**](images/mockups/JoinRoomJoined.png)
 
-5) As a **student**, I want to rate my colleagues participation in the study room and view their ratings, so that I can encourage active participation and make informed choices about study partners. ([**Colleague Rating**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/4))
+5) As a **student**, I want to rate my colleagues participation in the study room and view their ratings, so that I can encourage active participation and make informed choices about study partners. ([**Colleague Rating**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/4))  
+   [**Profile**](images/mockups/Profile.png) | [**Room You Joined**](images/mockups/RoomYouJoined.png) | [**Room You Created**](images/mockups/YourRoom.png)
 
-6) As a **student**, I want to access my statistics, so that I can track how much time I’ve been studying for each subject. ([**Statistics Viewer**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/5))
+6) As a **student**, I want to access my statistics, so that I can track how much time I’ve been studying for each subject. ([**Statistics Viewer**](https://github.com/LEIC-ES-2024-25/2LEIC12T2/issues/5))  
+   [**Statistics**](images/mockups/Statistics.png)
 
 <!-- 
 In this section, you should describe all kinds of requirements for your module: functional and non-functional requirements.
