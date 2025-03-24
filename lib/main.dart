@@ -37,7 +37,7 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
             DropdownButtonFormField<String>(
               decoration: InputDecoration(labelText: "Subject"),
               value: selectedSubject,
-              items: ["Base de Dados", "Desenho de Algoritmos", "ESOF", "Fisica", "Analise Matematica", "Programacao"]
+              items: ["Base de Dados", "Desenho de Algoritmos", "ESOF", "Algebra", "Analise Matematica", "Programacao"]
                   .map((subject) => DropdownMenuItem(
                         value: subject,
                         child: Text(subject),
