@@ -201,6 +201,10 @@ Example of _UML package diagram_ showing a _logical view_ of the Eletronic Ticke
 
 
 ### Physical architecture
+
+![UML Component/Deployment Diagram](images/UML_Component_Deployment_Diagram.png)
+
+The application consists of three main environments: **Mobile Device**, **Backend Server**, and **Database Server**. On the **Mobile Device**, users interact with the application through a UI, which uses Local Storage for local data persistence. The device communicates via HTTPS with the **Backend Server**, which provides a REST API and manages several services, including User Service, Study Room Service, and Analytics. These services connect directly to the **Database Server**, storing data in dedicated databases for users, study rooms, challenges, and statistics.
 <!--
 The goal of this subsection is to document the high-level physical structure of the software system (machines, connections, software components installed, and their dependencies) using UML deployment diagrams (Deployment View) or component diagrams (Implementation View), separate or integrated, showing the physical structure of the system.
 
