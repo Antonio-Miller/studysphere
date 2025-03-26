@@ -255,7 +255,16 @@ You can find below information and references related with the project managemen
 -->
 
 ### Sprint 0
+**Done:**  
+User stories ✅  
+Domain Model ✅  
+Logical and Physical Architecture ✅  
+Mockups ✅  
+First Vertical Prototype ✅  
 
+**Sprint1 Planning:**  
+Firebase  
+Authentication  
 ### Sprint 1
 
 ### Sprint 2
