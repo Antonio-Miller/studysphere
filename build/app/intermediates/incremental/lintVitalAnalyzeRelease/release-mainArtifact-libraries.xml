@@ -1,8 +1,8 @@
 <libraries>
   <library
-      name="__local_aars__:C:\Users\donov\Desktop\FEUP\ES\flutter_application_1\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
-      jars="C:\Users\donov\Desktop\FEUP\ES\flutter_application_1\build\app\intermediates\flutter\release\libs.jar"
-      resolved="__local_aars__:C:\Users\donov\Desktop\FEUP\ES\flutter_application_1\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
+      name="__local_aars__:C:\Users\donov\Desktop\FEUP\ES\StudySphere\build\app\intermediates\flutter\release\libs.jar:unspecified@jar"
+      jars="C:\Users\donov\Desktop\FEUP\ES\StudySphere\build\app\intermediates\flutter\release\libs.jar"
+      resolved="__local_aars__:C:\Users\donov\Desktop\FEUP\ES\StudySphere\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
   <library
       name="io.flutter:flutter_embedding_release:1.0.0-82bd5b7209295a5b7ff8cae0df96e7870171e3a5@jar"
       jars="C:\Users\donov\.gradle\caches\modules-2\files-2.1\io.flutter\flutter_embedding_release\1.0.0-82bd5b7209295a5b7ff8cae0df96e7870171e3a5\f6c43158f9203a219312bd674ff9bb50413a0003\flutter_embedding_release-1.0.0-82bd5b7209295a5b7ff8cae0df96e7870171e3a5.jar"
