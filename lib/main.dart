@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-
+import '../authentic/login_page.dart';
 void main() {
   runApp(const StudySphereApp());
 }
 
+class StudySphereApp extends StatelessWidget {
+  const StudySphereApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+/*
 class StudySphereApp extends StatelessWidget {
   const StudySphereApp({super.key});
 
@@ -18,7 +29,7 @@ class StudySphereApp extends StatelessWidget {
       home: const RoomCreationScreen(),
     );
   }
-}
+}*/
 
 class Room {
   final String subject;
