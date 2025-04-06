@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/authentic/authentic_service.dart';
+import 'package:flutter_application_1/authentic/signOut_page.dart';
 import 'register_page.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,6 +12,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //estes fields vao guaradar o estado dos inputs do utilizador
+  //aqui is basically the same as the register but instead of create with email and pass its gon be singin
+  final _athen= AuthenticService();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -89,13 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        //ainda vamos implemntar a minha logica de login
-                        final username = _usernameController.text;
-                        final password = _passwordController.text;
-                        // Your login logic here using username and password
-                        print('Logging in with: $username, $password');
-                      },
+                      onPressed: _login,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -141,4 +139,24 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+    goToSignOut(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SignoutPage(),
+      ),
+    );
+  }
+  //aqui faremos metodo login do utilizador
+  _login() async{
+    final user= await _athen.loginUserwithEmailAndPassword(_usernameController.text, _passwordController.text);
+      if(user != null){
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successfull")));
+        goToSignOut(context);
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login failed")));
+      }
+    }
+  
 }

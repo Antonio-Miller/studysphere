@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/authentic/authentic_service.dart';
+import 'login_page.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -9,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   //this basically mema coisa com o login
+  final _authen = AuthenticService();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -102,16 +106,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Handle registration action
-                        final name = _nameController.text;
-                        final email = _emailController.text;
-                        final password = _passwordController.text;
-
-                        if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
-                          // Add your registration logic here
-                        }
-                      },
+                      //here eu vou chamar um metodo chamado signUp que vai fazer o register
+                      onPressed: _signUp,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -151,5 +147,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ],
       ),
     );
+
+  }
+//okay depois de nos registarmos temos de ir para o login
+//so we make a methood easy
+  goTologin(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+  //isto vai fazer o user ir para a pagina de login
+
+
+
+  _signUp() async{
+    //esta variavel user e que vao ter os dados do utilizador que se registou
+     final user= await _authen.createUserwithEmailAndPassword(_emailController.text, _passwordController.text); 
+    //agora temos de verificar se o user nao e null as we do in Lcom
+    if(user!=null){
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${_nameController.text} registered successfully!"),
+        backgroundColor: const Color.fromARGB(255, 76, 155, 175),
+      ),
+    );
+      goTologin(context);//isto vai fazer o utilizador ir para a pagina de login
+   
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Something went wrong!, please try again"),
+        backgroundColor: const Color.fromARGB(255, 211, 98, 89),
+      ),
+    );//isto vai fazer log do erro que aconteceu
+    }
   }
 }
