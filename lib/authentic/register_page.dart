@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
+
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  //this basically mema coisa com o login
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +60,7 @@ class RegisterScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
+                    controller: _nameController,
                     decoration: InputDecoration(
                       hintText: 'Full Name',
                       filled: true,
@@ -54,6 +73,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       hintText: 'Email: upXXXXXXXXX@up.pt',
                       filled: true,
@@ -66,6 +86,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   TextField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
@@ -81,7 +102,16 @@ class RegisterScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Handle registration action
+                        final name = _nameController.text;
+                        final email = _emailController.text;
+                        final password = _passwordController.text;
+
+                        if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
+                          // Add your registration logic here
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -102,7 +132,7 @@ class RegisterScreen extends StatelessWidget {
                       const Text("Already have an account? "),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context); // Go back to login
+                          Navigator.pop(context);
                         },
                         child: const Text(
                           'Log In',

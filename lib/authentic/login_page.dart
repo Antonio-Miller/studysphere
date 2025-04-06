@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'register_page.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  //estes fields vao guaradar o estado dos inputs do utilizador
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    //aqui faremos o dispose para evitar memory leaks
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +60,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
+                    controller: _usernameController,
                     decoration: InputDecoration(
                       hintText: 'Username: up202309344@up.pt',
                       filled: true,
@@ -55,6 +73,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password: ************',
@@ -70,7 +89,13 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        //ainda vamos implemntar a minha logica de login
+                        final username = _usernameController.text;
+                        final password = _passwordController.text;
+                        // Your login logic here using username and password
+                        print('Logging in with: $username, $password');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -97,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                               builder: (context) => const RegisterScreen(),
                             ),
                           );
-                        },//eset vai nos levar a register page 
+                        }, //eset vai nos levar a register page
                         child: const Text(
                           'Register',
                           style: TextStyle(

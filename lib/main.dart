@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../authentic/login_page.dart';
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+//so before we run the app we have to also initialize our firebase database
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+ 
   runApp(const StudySphereApp());
 }
 
