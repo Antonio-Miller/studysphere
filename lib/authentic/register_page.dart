@@ -1,0 +1,188 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/authentic/authentic_service.dart';
+import 'login_page.dart';
+
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  //this basically mema coisa com o login
+  final _authen = AuthenticService();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueAccent,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 40),
+          const Text(
+            'StudySphere',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          const CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.person_add,
+              size: 50,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      hintText: 'Full Name',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Email: upXXXXXXXXX@up.pt',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      //here eu vou chamar um metodo chamado signUp que vai fazer o register
+                      onPressed: _signUp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already have an account? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Log In',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+  }
+//okay depois de nos registarmos temos de ir para o login
+//so we make a methood easy
+  goTologin(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+  //isto vai fazer o user ir para a pagina de login
+
+
+
+  _signUp() async{
+    //esta variavel user e que vao ter os dados do utilizador que se registou
+     final user= await _authen.createUserwithEmailAndPassword(_emailController.text, _passwordController.text); 
+    //agora temos de verificar se o user nao e null as we do in Lcom
+    if(user!=null){
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${_nameController.text} registered successfully!"),
+        backgroundColor: const Color.fromARGB(255, 76, 155, 175),
+      ),
+    );
+      goTologin(context);//isto vai fazer o utilizador ir para a pagina de login
+   
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Something went wrong!, please try again"),
+        backgroundColor: const Color.fromARGB(255, 211, 98, 89),
+      ),
+    );//isto vai fazer log do erro que aconteceu
+    }
+  }
+}
