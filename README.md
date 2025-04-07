@@ -266,6 +266,13 @@ First Vertical Prototype ✅
 Firebase  
 Authentication  
 ### Sprint 1
+- Scrum board at the end of the Sprint 1 Planning:
+
+![img](images/scrum_board_1/before.png)
+
+- Scrum board after Sprint 1:
+
+![img](images/scrum_board_1/after.png)
 
 ### Sprint 2
 
