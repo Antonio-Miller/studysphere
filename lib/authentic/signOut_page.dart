@@ -74,7 +74,7 @@ class _SignOut extends State<SignoutPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginScreen()),
-    ); // Navigate to the login screen after signing out
+    ); // vai a pagina de login depois do sign out
   }
 
 }
