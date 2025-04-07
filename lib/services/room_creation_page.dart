@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/authentic/authentic_service.dart';
 import '../authentic/login_page.dart';
 
@@ -88,10 +89,11 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
             ),
             const SizedBox(height: 10),
             TextFormField(
-              controller: maxStudentsController,
-              decoration: const InputDecoration(labelText: "Max Students"),
-              keyboardType: TextInputType.number,
-            ),
+            controller: maxStudentsController,
+            decoration: const InputDecoration(labelText: "Max Students"),
+            keyboardType: const TextInputType.numberWithOptions(decimal: false),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
             const SizedBox(height: 10),
             TextFormField(
               controller: dateController,
