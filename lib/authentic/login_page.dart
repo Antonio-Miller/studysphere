@@ -107,6 +107,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+//this is gon be my signin with google button
+   const SizedBox(height: 5),
+                  SizedBox(
+                    width: 300,
+                    child: ElevatedButton(
+                      onPressed: () async{
+                        await _athen.loginwithGoogle();
+                      },//aqui vamos ter o nosso metodo do google sign in
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 196, 202, 212),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: const Text(
+                        'Sigin In with Google',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+
+
+                 //aqui vamos fazer o sign in com google
                   const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

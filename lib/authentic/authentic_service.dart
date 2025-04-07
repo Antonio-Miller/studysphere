@@ -1,11 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer';
+import 'package:google_sign_in/google_sign_in.dart';
 //esta biblioteca é para fazer log de erros
 //neste ficheiro teremos a logic of the sign in and sign up
 
 
 class AuthenticService {
-  final _authentic = FirebaseAuth.instance;//esta instacia vai guardar o estado de autenticação do utilizador
+  final _authentic = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();//this is my google instance so that we can log out of google too
+
+  Future<UserCredential?> loginwithGoogle() async {
+    try {
+      final googleUser = await _googleSignIn.signIn(); 
+      final googleAuth = await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );// aqui estamos a buscar id tokaen and access token do google para guardar na nossa variavel credential
+      return await _authentic.signInWithCredential(credential);// e aqui vai mandar mandar oque queremos para o firebase
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+  
+  
+  
+  
   //o sign up/register
   Future<User?> createUserwithEmailAndPassword(
       String email, String password) async {
@@ -42,7 +63,8 @@ class AuthenticService {
   //agora o nosso sign out method
   Future<void> signOut() async {
     try {
-      await _authentic.signOut();//this will sign out the user
+      await _authentic.signOut();//this will sign out the user    // Sign out from Firebase
+      await _googleSignIn.signOut();//this will sign out the user from google too
     } catch (e) {
       log("Unable to Sign Out:");//this will log the error if it fails to sign out
     }
