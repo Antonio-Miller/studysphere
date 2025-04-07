@@ -1,0 +1,2 @@
+C:/Users/pedro/OneDrive/Documentos/GitHub/2LEIC12T2/android/app/.cxx/Debug/173q6j64/x86/CMakeFiles/edit_cache.dir
+C:/Users/pedro/OneDrive/Documentos/GitHub/2LEIC12T2/android/app/.cxx/Debug/173q6j64/x86/CMakeFiles/rebuild_cache.dir

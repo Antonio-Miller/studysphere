@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentic/login_page.dart';
+import 'package:flutter_application_1/services/home_page.dart';
 import '/services/room_creation_page.dart';
 
 
@@ -22,7 +23,7 @@ class Wrapper extends StatelessWidget {
             if (snapshot.data == null) { // aqui o user is loggedoff so he goes to loginScreen
               return const LoginScreen();
             } else {
-              return const RoomCreationScreen(); // aqui o user is logged in(we have its data) so he goes to the room creation page
+              return const HomePage(); // aqui o user is logged in(we have its data) so he goes to the room creation page
             }
           }
         },

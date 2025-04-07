@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentic/authentic_service.dart';
 import 'package:flutter_application_1/services/room_creation_page.dart';
+import 'package:flutter_application_1/services/home_page.dart';
 import 'register_page.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -178,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final user= await _athen.loginUserwithEmailAndPassword(_usernameController.text, _passwordController.text);
       if(user != null){
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successfull")));
-        gotTorRoomCreationScreen(context);//this is gonna take us to the room creation page
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()),);
       }else{
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login failed")));
       }
