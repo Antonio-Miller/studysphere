@@ -274,7 +274,23 @@ Authentication
 
 ![img](images/scrum_board_1/after.png)
 
+- Sprint Review:
+
+The demonstration of the product increment was successfully done, however, there's an unresolved issue with signing in using Google, and the root cause is still unclear. The app lacks visual identity, but overall the goals of the sprint 1 were achieved and the new features add value to the end user. The release of the increment was created on GitHub.
+
+- Sprint Retrospective:
+
+All planned features were successfully implemented, and we're satisfied with the team's performance. A minor issue remains with the Google Sign-In functionality, which we intend to address in the next iteration. We also plan to further explore ways to enhance the app's visual identity moving forward.
+
+- Happiness Meter:
+
+We are very happy about our performance in the sprint 1.
+
 ### Sprint 2
+
+- Scrum board at the end of the Sprint 2 Planning:
+
+![img](images/scrum_board_2/before.png)
 
 ### Sprint 3
 
