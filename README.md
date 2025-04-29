@@ -286,6 +286,15 @@ All planned features were successfully implemented, and we're satisfied with the
 
 We are very happy about our performance in the sprint 1.
 
+    |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
+    |------------|-----------|------------|----------|--------|
+    |**António** |     -     |            |          |        |
+    |**Bernardo**|    ⭐ ️    |    😊      |   ⭐️     |   ⭐  |
+    |**Donovan** |           |            |     -    |        |
+    |**Pedro**   |           |            |          |    -   |
+
+*Using the same scale as the Happiness Meter on Moodle.*
+
 ### Sprint 2
 
 - Scrum board at the end of the Sprint 2 Planning:
