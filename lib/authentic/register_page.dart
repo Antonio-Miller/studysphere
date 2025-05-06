@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentic/authentic_service.dart';
 import 'login_page.dart';
@@ -12,8 +14,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   //this basically mema coisa com o login
+  //but here we wanna keep the name of the User too so that we can display it in the profile page
   final _authen = AuthenticService();
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();//already have our text editing
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -174,6 +177,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: const Color.fromARGB(255, 76, 155, 175),
       ),
     );
+
+    //okay so before we go to the login also gotta keep them user Data
+    //now we call our adduser full name to database before we go to login
+    _addUserDetails(_nameController.text);
+
       goTologin(context);//isto vai fazer o utilizador ir para a pagina de login
    
     }else{
@@ -185,4 +193,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );//isto vai fazer log do erro que aconteceu
     }
   }
+
+  //okay we have to develop our method to get user name and keep it
+
+  _addUserDetails(String FullName) async {
+    await FirebaseFirestore.instance.collection('User').add({
+      'FullName': FullName,//esta vai guardar o name of user 
+    });
+  
+  }
+
 }
