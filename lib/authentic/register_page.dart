@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentic/authentic_service.dart';
@@ -180,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     //okay so before we go to the login also gotta keep them user Data
     //now we call our adduser full name to database before we go to login
-    _addUserDetails(_nameController.text);
+    _addUserDetails(_nameController.text,_emailController.text);//aqui estamos a passar o nome e email do user
 
       goTologin(context);//isto vai fazer o utilizador ir para a pagina de login
    
@@ -194,13 +195,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  //okay we have to develop our method to get user name and keep it
+  //okay we have to develop our method to get user name and keep it for this we gotta use the doc
 
-  _addUserDetails(String FullName) async {
-    await FirebaseFirestore.instance.collection('User').add({
-      'FullName': FullName,//esta vai guardar o name of user 
-    });
-  
+
+  _addUserDetails(String fullName, String email) async {
+    final user= FirebaseAuth.instance.currentUser;//aqui estamos a manter a obter info do current
+    if(user != null){
+    //aqui estamos a fazer o add do user ao firestore
+      await FirebaseFirestore.instance.collection('User').doc(user.uid).set({
+        'fullName': fullName,
+        'email': email,
+      });
+    }
   }
 
 }
