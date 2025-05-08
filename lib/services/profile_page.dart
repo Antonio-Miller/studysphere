@@ -36,7 +36,7 @@ Widget build(BuildContext context) {
           child: Column(
             children: [
               const SizedBox(height: 60),
-              const Icon(Icons.person, size: 100, color: Colors.blueAccent),
+              const Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -124,10 +124,10 @@ class _buildSubjectTile extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.blueAccent,
-        child: Text(acronym, style: const TextStyle(color: Colors.white)),
+        child: Text(acronym, style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
       ),
       title: Text(name),
-      trailing: const Icon(Icons.check_box, color: Colors.grey),
+      trailing: const Icon(Icons.check_box, color: Color.fromARGB(255, 63, 93, 213)),
     );
   }
 }
