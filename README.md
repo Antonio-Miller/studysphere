@@ -301,6 +301,10 @@ We are very happy about our performance in the sprint 1.
 
 ![img](images/scrum_board_2/before.png)
 
+- Scrum board after Sprint 2:
+
+![img](images/scrum_board_2/after.png)
+
 ### Sprint 3
 
 ### Sprint 4
