@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/services/profile_page.dart';
+import 'package:flutter_application_1/services/home_page.dart';
 
+
+//we need to change it so that we can navigate the app with it
 class BottomBar extends StatelessWidget {
-  const BottomBar({super.key});
+  //we need to make this a builder
+  final BuildContext parentContext;
+  const BottomBar({super.key, required this.parentContext});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,32 @@ class BottomBar extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          // Logic for the bar navigation yet to be added
+          //agora aqui uma logica simples com os indices da nossa navigation bar
+          //0 = profile, 1 = home, 2 = stats, 3 = forum
+          switch (index) {
+            case 0:
+              Navigator.push(
+                parentContext,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                ),
+              );
+              break;
+            case 1:
+              Navigator.push(
+                parentContext,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+              break;
+            case 2:
+              // Navigate to Stats page
+              break;
+            case 3:
+              // Navigate to Forum page
+              break;
+          }
         },
       ),
     );
