@@ -288,10 +288,10 @@ We are very happy about our performance in the sprint 1.
 
     |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
     |------------|-----------|------------|----------|--------|
-    | **António** |    ⭐    |     ⭐    |    ⭐    |   ⭐  |
+    | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
     | **Bernardo** |    ⭐ ️   |    😊    |    ⭐️    |   ⭐  |
-    | **Donovan** |           |           |     -    |        |
-    | **Pedro**   |           |           |          |    -   |
+    | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
+    | **Pedro**    |         |            |           |   --  |
 
 *Using the same scale as the Happiness Meter on Moodle.*
 
@@ -304,6 +304,33 @@ We are very happy about our performance in the sprint 1.
 - Scrum board after Sprint 2:
 
 ![img](images/scrum_board_2/after.png)
+
+- Sprint Review:
+
+This sprint was a significant learning experience for our team. Our primary goal was to implement the Profile Page by fetching user data from the "User" collection in Firebase. We successfully completed the process of receiving, storing, reading, and displaying user data. Regarding the Room creation feature, we implemented the database structure in Firebase. However, we chose not to consider it as completed for this sprint. We are currently facing issues with retrieving the last message sent by a user and ensuring that messages persist correctly after the app is closed and reopened.
+
+- Sprint Retrospective:
+
+We successfully implemented approximately 69% of what we had planned. While we're not fully satisfied with our overall team performance knowing there's still significant room for improvement we gained valuable knowledge in database implementation and user data management. On a positive note, we’re confident that the experience and insights gained during this sprint will be clearly reflected in our progress in the next sprint.
+
+-Profile Page"
+
+![img](images/Profile_Page.png)
+
+- Happiness Meter:
+
+We are partially satisfied about our performance in the sprint 2.
+
+    |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
+    |------------|-----------|------------|----------|--------|
+    | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
+    | **Bernardo** |    ⭐ ️   |    ⭐    |    ⭐️    |   ⭐  |
+    | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
+    | **Pedro**    |         |            |           |   --  |
+
+*Using the same scale as the Happiness Meter on Moodle.*
+
+
 
 ### Sprint 3
 
