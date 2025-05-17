@@ -31,8 +31,8 @@ class BottomBar extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart, color: Colors.blueAccent),
-            label: 'Stats',
+            icon: Icon(Icons.mark_unread_chat_alt, color: Colors.blueAccent),
+            label: 'Rooms',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.forum, color: Colors.blueAccent),

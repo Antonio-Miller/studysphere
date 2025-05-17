@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../services/chat_page.dart';
 import 'create_post_page.dart';
 
 class ForumPage extends StatelessWidget {
@@ -36,7 +38,7 @@ class ForumPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final post = posts[index];
               final data = post.data() as Map<String, dynamic>;
-              return Card(
+             return Card(
                 margin: const EdgeInsets.only(bottom: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -57,6 +59,18 @@ class ForumPage extends StatelessWidget {
                       Text('Autor: ${data['authorEmail']}'),
                     ],
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatRoom(
+                          receiveremail: FirebaseAuth.instance.currentUser?.email ?? 'unknown',
+                          receiverId: data['authorEmail'] ?? 'unknown',
+                          title: data['title'] ?? 'Sem título',
+                        ),
+                      ),
+                    );
+                  },
                 ),
               );
             },
