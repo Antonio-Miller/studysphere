@@ -47,7 +47,7 @@ class BottomBar extends StatelessWidget {
               Navigator.push(
                 parentContext,
                 MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
+                  builder: (context) =>const ProfilePage(),
                 ),
               );
               break;
