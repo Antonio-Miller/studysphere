@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/authentic/authentic_service.dart';
-import '../authentic/login_page.dart';
 
 class StudySphereApp extends StatelessWidget {
   const StudySphereApp({super.key});
@@ -181,7 +179,6 @@ class RoomsListScreen extends StatefulWidget {
 }
 
 class _RoomsListScreenState extends State<RoomsListScreen> {
-  final _authen = AuthenticService();
   final List<Room> _rooms = [];
   String _selectedFilter = 'All';
 
@@ -257,30 +254,6 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
               );
             },
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 20,
-            child: Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6, // Adjust width as needed
-                child: ElevatedButton(
-                  onPressed: _signOut,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    'Sign Out',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -291,13 +264,4 @@ class _RoomsListScreenState extends State<RoomsListScreen> {
       SnackBar(content: Text('Joined ${room.name}')),
     );
   }
-
-  _signOut() async {
-    await _authen.signOut(); // Call the sign-out method
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    ); // vai a pagina de login depois do sign out
-  }
 }
-

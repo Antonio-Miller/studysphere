@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/profile_page.dart';
 import 'package:flutter_application_1/services/home_page.dart';
+import 'package:flutter_application_1/forum/forum_page.dart';
 
 
 //we need to change it so that we can navigate the app with it
@@ -30,8 +31,8 @@ class BottomBar extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart, color: Colors.blueAccent),
-            label: 'Stats',
+            icon: Icon(Icons.mark_unread_chat_alt, color: Colors.blueAccent),
+            label: 'Rooms',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.forum, color: Colors.blueAccent),
@@ -46,7 +47,7 @@ class BottomBar extends StatelessWidget {
               Navigator.push(
                 parentContext,
                 MaterialPageRoute(
-                  builder: (context) => const ProfilePage(),
+                  builder: (context) =>const ProfilePage(),
                 ),
               );
               break;
@@ -62,7 +63,12 @@ class BottomBar extends StatelessWidget {
               // Navigate to Stats page
               break;
             case 3:
-              // Navigate to Forum page
+              Navigator.push(
+                parentContext,
+                MaterialPageRoute(
+                  builder: (context) => const ForumPage(),
+                ),
+              );
               break;
           }
         },

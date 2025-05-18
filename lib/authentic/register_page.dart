@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/authentic/authentic_service.dart';
 import 'login_page.dart';
@@ -203,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if(user != null){
     //aqui estamos a fazer o add do user ao firestore
       await FirebaseFirestore.instance.collection('User').doc(user.uid).set({
-        'fullName': fullName,
+        'full_name': fullName,
         'email': email,
       });
     }
