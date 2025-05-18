@@ -29,7 +29,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final doc = await FirebaseFirestore.instance.collection('User').doc(uid).get();
     setState(() {
-      _userName = doc['fullName'];
+      final data = doc.data();
+      _userName = data?['full_name'] ?? data?['fullName'] ?? 'Error loading name';
     });
   }
 

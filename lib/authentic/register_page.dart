@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if(user != null){
     //aqui estamos a fazer o add do user ao firestore
       await FirebaseFirestore.instance.collection('User').doc(user.uid).set({
-        'fullName': fullName,
+        'full_name': fullName,
         'email': email,
       });
     }

@@ -1,147 +1,134 @@
-//this will be our room page
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/services/chat/chat_service.dart';
-import '../forum/forum_page.dart';
-import 'package:flutter_application_1/authentic/authentic_service.dart';
-import 'package:flutter_application_1/authentic/login_page.dart';
-import 'package:flutter_application_1/bottom_bar.dart';
+import 'chat/chat_service.dart';
+import '../models/message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatRoom extends StatefulWidget {
-  final String title;//this will be the name on top of the room
-  final String receiveremail;
-  final String receiverId;
+  final String postId;
+  final String title;
 
-  const ChatRoom({super.key,
-      required this.receiveremail, 
-      required this.receiverId,
-      required this.title,
-  });
+  const ChatRoom({super.key, required this.postId, required this.title});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
-class _ChatRoomState extends State<ChatRoom>{
-  //okay so now lets start building the design of our chat room
+class _ChatRoomState extends State<ChatRoom> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   void sendMessage() async {
-    String message = _messageController.text.trim();
-    //vai garantir que nao podemos mandar mensagens vazias
-    if (message.isNotEmpty) {
-      await _chatService.sendMessage(widget.receiverId,_messageController.text);
-      _messageController.clear();//clean the controller after clicking send
-    }
+    final text = _messageController.text.trim();	
+    if (text.isEmpty) return;
+    print('Sending message: $text');//this is for debugging
+    await _chatService.sendMessage(widget.postId, _messageController.text.trim());
+    _messageController.clear();
   }
 
+ Widget _buildMessageList() {
+  return StreamBuilder<QuerySnapshot>(
+    stream: _chatService.getMessages(widget.postId),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        print('Stream error: ${snapshot.error}');
+        return const Center(child: Text('Something went wrong...'));
+      }
+
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      // No data
+      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        return const Center(child: Text('No messages yet.'));
+      }
+
+      return ListView(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        children: snapshot.data!.docs.map((doc) {
+          try {
+            final message = Message.fromMap(doc.data() as Map<String, dynamic>);
+            final isCurrentUser = message.senderId == _firebaseAuth.currentUser?.uid;
+
+            return Align(
+              alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isCurrentUser ? Colors.blue[200] : Colors.grey[300],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment:
+                      isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      message.senderEmail,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      message.message,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } catch (e) {
+            print('Error building message from Firestore: $e');
+            return const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Could not load message.'),
+            );
+          }
+        }).toList(),
+      );
+    },
+  );
+}
 
 
-
-
+  Widget _buildMessageInput() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _messageController,
+            decoration: const InputDecoration(
+              hintText: 'Type your message...',
+              contentPadding: EdgeInsets.all(10),
+            ),
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.send),
+          onPressed: sendMessage,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar (title: Text(widget.title),
-        backgroundColor: Colors.blueAccent,
-        centerTitle: true),
+      appBar: AppBar(title: Text(widget.title)),
       body: Column(
-        children: [Expanded(
-          child: _buildMessageList(),
-          
-
-         ),
-        
-        _buildMessageInput(),
-        
-        ],
-
-      ),
-   
-    );
-  }
-  //message list
-  Widget _buildMessageList() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _chatService.getMessage(_auth.currentUser!.uid, widget.receiverId),
-      builder: (context, snapshot) {
-        if(snapshot.hasError) {
-          return const Center(child: Text('Erro ao carregar mensagens.'));
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('Nenhuma mensagem ainda.'));
-        }
-        final messages = snapshot.data!.docs;
-        return ListView.builder(
-          itemCount: messages.length,
-          itemBuilder: (context, index) {
-            return _buildMessageItem(messages[index]);
-          },
-        );
-      },
-    );
-  }
-
-  //message item
-  Widget _buildMessageItem(DocumentSnapshot documnet){
-    Map<String, dynamic> data = documnet.data() as Map<String, dynamic>;
-  var aligment =(data['senderId'] == _auth.currentUser!.uid) 
-  ?Alignment.centerRight 
-  : Alignment.centerLeft;
-  
-  return Container(
-    alignment: aligment,
-    child: Column(
-      children: [
-        Text(data['senderEmail']?? 'Email desconhecido',),
-        Text(data['message']?? 'Mensagem vazia',),
-      ],
-    ),
-  );
-  
-  
-  
-  
-  }
-
-  //message input
-  Widget _buildMessageInput() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
         children: [
-          Expanded(
-            child: TextField(
-              controller: _messageController,
-              decoration: InputDecoration(
-                hintText: 'Digite sua mensagem...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.grey[200],
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: sendMessage,
+          Expanded(child: _buildMessageList()),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: _buildMessageInput(),
           ),
         ],
       ),
     );
   }
-
-
-
-
 }

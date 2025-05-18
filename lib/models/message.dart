@@ -32,4 +32,15 @@ class Message {
       'timestamp': timestamp,
     };
   }
+
+    //criamos a Message from Firestore map
+  static Message fromMap(Map<String, dynamic> map) {
+    return Message(
+      senderId: map['senderId'] ?? '',
+      senderEmail: map['senderEmail'] ?? '',
+      receiverId: map['receiverId'] ?? '',
+      message: map['message'] ?? '',
+      timestamp: map['timestamp'] ?? Timestamp.now(),
+    );
+  }
 }

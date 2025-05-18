@@ -64,8 +64,7 @@ class ForumPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChatRoom(
-                          receiveremail: FirebaseAuth.instance.currentUser?.email ?? 'unknown',
-                          receiverId: data['authorEmail'] ?? 'unknown',
+                          postId: post.id,
                           title: data['title'] ?? 'Sem título',
                         ),
                       ),
