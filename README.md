@@ -291,7 +291,7 @@ We are very happy about our performance in the sprint 1.
     | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
     | **Bernardo** |    ⭐ ️   |    😊    |    ⭐️    |   ⭐  |
     | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
-    | **Pedro**    |         |            |           |   --  |
+    | **Pedro**    |     ⭐️   |     ⭐️   |     ⭐️   |   😊  |
 
 *Using the same scale as the Happiness Meter on Moodle.*
 
@@ -326,7 +326,7 @@ We are partially satisfied about our performance in the sprint 2.
     | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
     | **Bernardo** |    ⭐ ️   |    ⭐    |    ⭐️    |   ⭐  |
     | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
-    | **Pedro**    |         |            |           |   --  |
+    | **Pedro**    |     ⭐️   |     ⭐️   |     ⭐️   |   😊  |
 
 *Using the same scale as the Happiness Meter on Moodle.*
 
