@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/services/profile_page.dart';
 import 'package:flutter_application_1/services/home_page.dart';
 import 'package:flutter_application_1/forum/forum_page.dart';
+import 'package:flutter_application_1/services/my_rooms_screen.dart';
 
 
 //we need to change it so that we can navigate the app with it
@@ -60,7 +61,12 @@ class BottomBar extends StatelessWidget {
               );
               break;
             case 2:
-              // Navigate to Stats page
+              Navigator.push(
+                parentContext,
+                MaterialPageRoute(
+                  builder: (context) => const MyRoomsScreen(),
+                ),
+              );
               break;
             case 3:
               Navigator.push(
