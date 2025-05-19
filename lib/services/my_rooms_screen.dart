@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'room_details_screen.dart';
 import 'RoomChatScreen.dart';
 
 class MyRoomsScreen extends StatefulWidget {
@@ -24,29 +25,38 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
   Future<void> _fetchUserRooms() async {
     if (user == null) return;
     final uid = user!.uid;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    final allRooms = await FirebaseFirestore.instance.collection('StudyRoom').get();
-    List<Map<String, dynamic>> userRooms = [];
+    try {
+      final allRooms = await firestore.collection('StudyRoom').get();
+      List<Map<String, dynamic>> userRooms = [];
 
-    for (var room in allRooms.docs) {
-      final participant = await FirebaseFirestore.instance
-          .collection('StudyRoom')
-          .doc(room.id)
-          .collection('Participants')
-          .doc(uid)
-          .get();
+      for (var room in allRooms.docs) {
+        final participantDoc = await firestore
+            .collection('StudyRoom')
+            .doc(room.id)
+            .collection('Participants')
+            .doc(uid)
+            .get();
 
-      if (participant.exists) {
-        final data = room.data();
-        data['roomId'] = room.id;
-        userRooms.add(data);
+        if (participantDoc.exists) {
+          final roomData = room.data();
+          roomData['roomId'] = room.id;
+          userRooms.add(roomData);
+        }
       }
-    }
 
-    setState(() {
-      _userRooms = userRooms;
-      _loading = false;
-    });
+      setState(() {
+        _userRooms = userRooms;
+        _loading = false;
+      });
+    } catch (e) {
+      // Handle errors and show fallback UI if needed
+      debugPrint('Error fetching user rooms: $e');
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
   @override
@@ -90,6 +100,18 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
                             Text('Max Students: ${room['maxStudents']}'),
                           ],
                         ),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => RoomDetailsScreen(
+                                roomId: room['roomId'],
+                                roomData: room,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
