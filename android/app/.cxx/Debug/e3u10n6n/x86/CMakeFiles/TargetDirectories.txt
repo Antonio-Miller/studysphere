@@ -1,0 +1,2 @@
+C:/Users/berna/Esof/2LEIC12T2/android/app/.cxx/Debug/e3u10n6n/x86/CMakeFiles/edit_cache.dir
+C:/Users/berna/Esof/2LEIC12T2/android/app/.cxx/Debug/e3u10n6n/x86/CMakeFiles/rebuild_cache.dir
