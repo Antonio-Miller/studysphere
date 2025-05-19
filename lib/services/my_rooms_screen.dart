@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'room_details_screen.dart';
 import 'RoomChatScreen.dart';
+import 'room_details_screen.dart'; // Import your new RoomDetailsScreen here
 
 class MyRoomsScreen extends StatefulWidget {
   const MyRoomsScreen({super.key});
@@ -25,24 +25,23 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
   Future<void> _fetchUserRooms() async {
     if (user == null) return;
     final uid = user!.uid;
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
-      final allRooms = await firestore.collection('StudyRoom').get();
+      final allRooms = await FirebaseFirestore.instance.collection('StudyRoom').get();
       List<Map<String, dynamic>> userRooms = [];
 
       for (var room in allRooms.docs) {
-        final participantDoc = await firestore
+        final participant = await FirebaseFirestore.instance
             .collection('StudyRoom')
             .doc(room.id)
             .collection('Participants')
             .doc(uid)
             .get();
 
-        if (participantDoc.exists) {
-          final roomData = room.data();
-          roomData['roomId'] = room.id;
-          userRooms.add(roomData);
+        if (participant.exists) {
+          final data = room.data();
+          data['roomId'] = room.id;
+          userRooms.add(data);
         }
       }
 
@@ -51,12 +50,87 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
         _loading = false;
       });
     } catch (e) {
-      // Handle errors and show fallback UI if needed
-      debugPrint('Error fetching user rooms: $e');
+      print('Error fetching user rooms: $e');
       setState(() {
         _loading = false;
       });
     }
+  }
+
+  Widget _buildRoomCard(Map<String, dynamic> room) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          // Navigate to the new RoomDetailsScreen with roomId and roomData
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RoomDetailsScreen(
+                roomId: room['roomId'],
+                roomData: room,
+              ),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              // Room info expanded in column
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      room['name'] ?? 'No Name',
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    _buildDetailRow(Icons.book, 'Subject: ${room['subject']}'),
+                    _buildDetailRow(Icons.calendar_today, 'Date: ${room['date']}'),
+                    _buildDetailRow(Icons.person, 'Creator: ${room['creatorName']}'),
+                  ],
+                ),
+              ),
+
+              // Chat button on the right stays the same
+              IconButton(
+                icon: const Icon(Icons.chat, color: Colors.blueAccent),
+                tooltip: 'Go to Chat Room',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RoomChatScreen(
+                        roomId: room['roomId'],
+                        roomName: room['name'] ?? 'No Name',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: Row(
+        children: [
+          Icon(icon, size: 16, color: Colors.grey[600]),
+          const SizedBox(width: 8),
+          Expanded(child: Text(text, style: const TextStyle(fontSize: 14))),
+        ],
+      ),
+    );
   }
 
   @override
@@ -71,49 +145,9 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
           : _userRooms.isEmpty
               ? const Center(child: Text('You have not joined any rooms.'))
               : ListView.builder(
-                  padding: const EdgeInsets.all(16),
                   itemCount: _userRooms.length,
                   itemBuilder: (context, index) {
-                    final room = _userRooms[index];
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: ListTile(
-                          onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RoomChatScreen(
-                                    roomId: room['roomId'],
-                                    roomName: room['name'] ?? 'No Name',
-                                  ),
-                               ),
-                           );
-                        },
-                        title: Text(room['name'] ?? 'No Name'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Subject: ${room['subject']}'),
-                            Text('Date: ${room['date']}'),
-                            Text('Creator: ${room['creatorName']}'),
-                            Text('Duration: ${room['duration']}'),
-                            Text('Max Students: ${room['maxStudents']}'),
-                          ],
-                        ),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => RoomDetailsScreen(
-                                roomId: room['roomId'],
-                                roomData: room,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
+                    return _buildRoomCard(_userRooms[index]);
                   },
                 ),
     );

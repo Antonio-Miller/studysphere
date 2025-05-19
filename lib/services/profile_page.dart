@@ -15,7 +15,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final _authen = AuthenticService();
   String? _userName;
-
   double? _averageRating;
   int _roomsCreated = 0;
   int _roomsJoined = 0;
@@ -58,22 +57,26 @@ class _ProfilePageState extends State<ProfilePage> {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    final userDoc =
-        await FirebaseFirestore.instance.collection('User').doc(uid).get();
+    final userDoc = await FirebaseFirestore.instance.collection('User').doc(uid).get();
     final data = userDoc.data();
     _userName = data?['full_name'] ?? data?['fullName'] ?? 'No name';
 
-    // Fetch rooms created
+    final selected = data?['selectedSubjects'];
+    if (selected is List) {
+      _selectedSubjects.clear();
+      _selectedSubjects.addAll(selected.cast<String>());
+    }
+
+    // Rooms created
     final roomsCreatedSnapshot = await FirebaseFirestore.instance
         .collection('StudyRoom')
         .where('creatorUid', isEqualTo: uid)
         .get();
     _roomsCreated = roomsCreatedSnapshot.docs.length;
 
-    // Fetch rooms joined
+    // Rooms joined
     final allRooms = await FirebaseFirestore.instance.collection('StudyRoom').get();
     int joinedCount = 0;
-
     for (final room in allRooms.docs) {
       final participantDoc = await FirebaseFirestore.instance
           .collection('StudyRoom')
@@ -86,19 +89,13 @@ class _ProfilePageState extends State<ProfilePage> {
         joinedCount++;
       }
     }
-
     _roomsJoined = joinedCount;
 
-    // Fetch and calculate average rating
-    final ratingSnapshot = await FirebaseFirestore.instance
-        .collection('StudyRoom')
-        .where('creatorUid', isEqualTo: uid)
-        .get();
-
+    // Average rating
     double totalRating = 0;
     int ratingCount = 0;
 
-    for (final roomDoc in ratingSnapshot.docs) {
+    for (final roomDoc in roomsCreatedSnapshot.docs) {
       final participantsSnapshot = await FirebaseFirestore.instance
           .collection('StudyRoom')
           .doc(roomDoc.id)
@@ -116,27 +113,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
     _averageRating = ratingCount > 0 ? totalRating / ratingCount : null;
 
-
     setState(() {});
-
-    final doc = await FirebaseFirestore.instance.collection('User').doc(uid).get();
-    setState(() {
-      final data = doc.data();
-      _userName = data?['full_name'] ?? data?['fullName'] ?? 'Error loading name';
-      final selected = data?['selectedSubjects'];
-      if (selected is List) {
-        _selectedSubjects.clear();
-        _selectedSubjects.addAll(selected.cast<String>());
-      }
-    });
   }
 
   Future<void> _saveSelectedSubjects() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
-    await FirebaseFirestore.instance.collection('User').doc(uid).update({
-      'selectedSubjects': _selectedSubjects.toList(),
-    });
+    await FirebaseFirestore.instance.collection('User').doc(uid).set(
+      {
+        'selectedSubjects': _selectedSubjects.toList(),
+      },
+      SetOptions(merge: true),
+    );
+
   }
 
   void _signOut() async {
@@ -171,8 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 FirebaseAuth.instance.currentUser?.email ?? 'No email',
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),
@@ -193,62 +181,11 @@ class _ProfilePageState extends State<ProfilePage> {
       body: _userName == null
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 60),
-            const Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.star, color: Colors.amber),
-                Icon(Icons.star, color: Colors.amber),
-                Icon(Icons.star, color: Colors.amber),
-                Icon(Icons.star, color: Colors.amber),
-                Icon(Icons.star_border, color: Colors.grey),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              _userName!,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Stats Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildStatCard("15", "Rooms Created"),
-                  _buildStatCard("26", "Rooms Joined"),
-                  _buildStatCard("100", "Hours Studying"),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // Escolha de Ano e Cadeiras
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 60),
-                  const Icon(Icons.person_rounded,
-                      size: 100, color: Colors.blueAccent),
-                  const Text(
-                    "Escolha de Cadeiras",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                  const Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent),
                   const SizedBox(height: 10),
-
-                  // Dynamic Rating
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(5, (index) {
@@ -261,6 +198,35 @@ class _ProfilePageState extends State<ProfilePage> {
                         return const Icon(Icons.star_border, color: Colors.grey);
                       }
                     }),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    _userName!,
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Statistics
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildStatCard("$_roomsCreated", "Rooms Created"),
+                        _buildStatCard("$_roomsJoined", "Rooms Joined"),
+                        _buildStatCard("100", "Hours Studying"),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Subject selection
+                  const Text(
+                    "Escolha de Cadeiras",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
                     children: [
                       Expanded(
                         child: RadioListTile<int>(
@@ -288,43 +254,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 10),
-                  Text(
-                    _userName!,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Stats Section
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildStatCard("$_roomsCreated", "Rooms Created"),
-                        _buildStatCard("$_roomsJoined", "Rooms Joined"),
-                        _buildStatCard("100", "Hours Studying"), // You can also make this dynamic
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      children: const [
-                        _buildSubjectTile("ES", "Engenharia de Software"),
-                        _buildSubjectTile("DA", "Desenho de Algoritmos"),
-                        _buildSubjectTile("LTW", "Laboratório de Tecnologias Web"),
-                        _buildSubjectTile("LC", "Laboratório de Computadores"),
-                        _buildSubjectTile("ME", "Métodos Estatísticos"),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 40),
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -349,14 +278,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     },
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
-
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
       bottomNavigationBar: BottomBar(parentContext: context),
     );
   }
@@ -365,33 +290,9 @@ class _ProfilePageState extends State<ProfilePage> {
 Widget _buildStatCard(String number, String label) {
   return Column(
     children: [
-      Text(
-        number,
-        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-      ),
+      Text(number, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
       const SizedBox(height: 4),
       Text(label, style: const TextStyle(color: Colors.grey)),
     ],
   );
 }
-
-class _buildSubjectTile extends StatelessWidget {
-  final String acronym;
-  final String name;
-
-  const _buildSubjectTile(this.acronym, this.name, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.blueAccent,
-        child: Text(acronym, style: const TextStyle(color: Colors.white)),
-      ),
-      title: Text(name),
-      trailing:
-          const Icon(Icons.check_box, color: Color.fromARGB(255, 63, 93, 213)),
-    );
-  }
-}
-
