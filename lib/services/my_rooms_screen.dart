@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'room_details_screen.dart';
+import 'RoomChatScreen.dart';
 
 class MyRoomsScreen extends StatefulWidget {
   const MyRoomsScreen({super.key});
@@ -77,6 +78,17 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
                     return Card(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: ListTile(
+                          onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RoomChatScreen(
+                                    roomId: room['roomId'],
+                                    roomName: room['name'] ?? 'No Name',
+                                  ),
+                               ),
+                           );
+                        },
                         title: Text(room['name'] ?? 'No Name'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

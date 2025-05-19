@@ -43,4 +43,41 @@ class ChatService extends ChangeNotifier {
         .orderBy('timestamp', descending: false)
         .snapshots();
   }
+
+
+  //this method is used to send messages in the room chat
+  Future<void> sendRoomMessage(String roomId, String message) async {
+  final currentUser = _auth.currentUser;
+  if (currentUser == null) return;
+
+  
+  final userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+  final data = userDoc.data();
+  final senderName = data?['full_name'] ?? data?['fullName']?? currentUser.email;
+
+  Message newMessage = Message(
+    senderId: currentUser.uid,
+    senderEmail: senderName,
+    receiverId: '',
+    message: message,
+    timestamp: Timestamp.now(),
+  );
+
+  await _firestore //wait and confrim that we stored the roomID with its message
+      .collection('StudyRoom')
+      .doc(roomId)
+      .collection('messages')
+      .add(newMessage.tomap());
+}
+
+Stream<QuerySnapshot> getRoomMessages(String roomId) {
+  return _firestore
+      .collection('StudyRoom')
+      .doc(roomId)
+      .collection('messages')
+      .orderBy('timestamp', descending: false)
+      .snapshots();
+}
+
+
 }
