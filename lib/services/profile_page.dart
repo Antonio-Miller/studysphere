@@ -15,23 +15,80 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final _authen = AuthenticService();
   String? _userName;
+  double? _averageRating;
+  int _roomsCreated = 0;
+  int _roomsJoined = 0;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserName();
+    _fetchUserData();
   }
 
-  Future<void> _fetchUserName() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+  Future<void> _fetchUserData() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
-    final doc = await FirebaseFirestore.instance.collection('User').doc(uid).get();
-    setState(() {
-      final data = doc.data();
-      _userName = data?['full_name'] ?? data?['fullName'] ?? 'Error loading name';
-    });
+    final userDoc =
+        await FirebaseFirestore.instance.collection('User').doc(uid).get();
+    final data = userDoc.data();
+    _userName = data?['full_name'] ?? data?['fullName'] ?? 'No name';
+
+    // Fetch rooms created
+    final roomsCreatedSnapshot = await FirebaseFirestore.instance
+        .collection('StudyRoom')
+        .where('creatorUid', isEqualTo: uid)
+        .get();
+    _roomsCreated = roomsCreatedSnapshot.docs.length;
+
+    // Fetch rooms joined
+    final allRooms = await FirebaseFirestore.instance.collection('StudyRoom').get();
+    int joinedCount = 0;
+
+    for (final room in allRooms.docs) {
+      final participantDoc = await FirebaseFirestore.instance
+          .collection('StudyRoom')
+          .doc(room.id)
+          .collection('Participants')
+          .doc(uid)
+          .get();
+
+      if (participantDoc.exists) {
+        joinedCount++;
+      }
+    }
+
+    _roomsJoined = joinedCount;
+
+    // Fetch and calculate average rating
+    final ratingSnapshot = await FirebaseFirestore.instance
+        .collection('StudyRoom')
+        .where('creatorUid', isEqualTo: uid)
+        .get();
+
+    double totalRating = 0;
+    int ratingCount = 0;
+
+    for (final roomDoc in ratingSnapshot.docs) {
+      final participantsSnapshot = await FirebaseFirestore.instance
+          .collection('StudyRoom')
+          .doc(roomDoc.id)
+          .collection('Participants')
+          .get();
+
+      for (final participantDoc in participantsSnapshot.docs) {
+        final rating = participantDoc.data()['rating'];
+        if (rating != null && rating is num) {
+          totalRating += rating.toDouble();
+          ratingCount++;
+        }
+      }
+    }
+
+    _averageRating = ratingCount > 0 ? totalRating / ratingCount : null;
+
+
+    setState(() {});
   }
 
   void _signOut() async {
@@ -55,7 +112,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       drawer: Drawer(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(color: Colors.blueAccent),
@@ -67,7 +123,8 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 FirebaseAuth.instance.currentUser?.email ?? 'No email',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),
@@ -91,18 +148,25 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   const SizedBox(height: 60),
-                  const Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent),
+                  const Icon(Icons.person_rounded,
+                      size: 100, color: Colors.blueAccent),
                   const SizedBox(height: 10),
+
+                  // Dynamic Rating
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.star, color: Colors.amber),
-                      Icon(Icons.star, color: Colors.amber),
-                      Icon(Icons.star, color: Colors.amber),
-                      Icon(Icons.star, color: Colors.amber),
-                      Icon(Icons.star_border, color: Colors.grey),
-                    ],
+                    children: List.generate(5, (index) {
+                      final rating = _averageRating ?? 0;
+                      if (rating >= index + 1) {
+                        return const Icon(Icons.star, color: Colors.amber);
+                      } else if (rating > index && rating < index + 1) {
+                        return const Icon(Icons.star_half, color: Colors.amber);
+                      } else {
+                        return const Icon(Icons.star_border, color: Colors.grey);
+                      }
+                    }),
                   ),
+
                   const SizedBox(height: 10),
                   Text(
                     _userName!,
@@ -119,16 +183,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildStatCard("15", "Rooms Created"),
-                        _buildStatCard("26", "Rooms Joined"),
-                        _buildStatCard("100", "Hours Studying"),
+                        _buildStatCard("$_roomsCreated", "Rooms Created"),
+                        _buildStatCard("$_roomsJoined", "Rooms Joined"),
+                        _buildStatCard("100", "Hours Studying"), // You can also make this dynamic
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 30),
-
-                  // Subject list
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
@@ -141,7 +202,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 40),
                 ],
               ),
@@ -151,7 +211,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-// Stat Card
 Widget _buildStatCard(String number, String label) {
   return Column(
     children: [
@@ -165,7 +224,6 @@ Widget _buildStatCard(String number, String label) {
   );
 }
 
-// Subject Tile
 class _buildSubjectTile extends StatelessWidget {
   final String acronym;
   final String name;
@@ -180,7 +238,9 @@ class _buildSubjectTile extends StatelessWidget {
         child: Text(acronym, style: const TextStyle(color: Colors.white)),
       ),
       title: Text(name),
-      trailing: const Icon(Icons.check_box, color: Color.fromARGB(255, 63, 93, 213)),
+      trailing:
+          const Icon(Icons.check_box, color: Color.fromARGB(255, 63, 93, 213)),
     );
   }
 }
+
