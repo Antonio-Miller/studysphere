@@ -58,6 +58,19 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       final data = doc.data();
       _userName = data?['full_name'] ?? data?['fullName'] ?? 'Error loading name';
+      final selected = data?['selectedSubjects'];
+      if (selected is List) {
+        _selectedSubjects.clear();
+        _selectedSubjects.addAll(selected.cast<String>());
+      }
+    });
+  }
+
+  Future<void> _saveSelectedSubjects() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+    await FirebaseFirestore.instance.collection('User').doc(uid).update({
+      'selectedSubjects': _selectedSubjects.toList(),
     });
   }
 
@@ -214,6 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               _selectedSubjects.remove(subject["acronym"]!);
                             }
                           });
+                          _saveSelectedSubjects();
                         },
                       );
                     },
