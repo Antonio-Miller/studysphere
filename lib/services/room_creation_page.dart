@@ -83,18 +83,64 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
 
     final roomRef = await FirebaseFirestore.instance.collection('StudyRoom').add(roomData);
 
-    //O criador da sala é adicionado como participante
     await roomRef.collection('Participants').doc(user.uid).set({
       'uid': user.uid,
       'email': user.email,
       'joinedAt': Timestamp.now(),
     });
 
+    await updateStudyStatistics(
+      user.uid,
+      isCreator: true,
+      durationStr: _durationController.text,
+    );
+
     if (!mounted) return;
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const RoomsListScreen()),
     );
+  }
+
+  Future<void> updateStudyStatistics(String uid, {required bool isCreator, required String durationStr}) async {
+    final statsRef = FirebaseFirestore.instance.collection('StudentStatistics').doc(uid);
+    final snapshot = await statsRef.get();
+
+    double parseDuration(String text) {
+      final lower = text.toLowerCase().replaceAll(' ', '');
+      double hours = 0;
+      double minutes = 0;
+
+      final hourMatch = RegExp(r'(\d+(\.\d+)?)h').firstMatch(lower);
+      final minMatch = RegExp(r'(\d+(\.\d+)?)m').firstMatch(lower);
+
+      if (hourMatch != null) {
+        hours = double.tryParse(hourMatch.group(1)!) ?? 0;
+      }
+      if (minMatch != null) {
+        minutes = double.tryParse(minMatch.group(1)!) ?? 0;
+      }
+
+      return hours + (minutes / 60);
+    }
+
+    final duration = parseDuration(durationStr);
+    if (duration == 0) return;
+
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      await statsRef.update({
+        'roomsCreated': data['roomsCreated'] + (isCreator ? 1 : 0),
+        'roomsJoined': data['roomsJoined'] + (isCreator ? 0 : 1),
+        'studyTimeHours': (data['studyTimeHours'] as double) + duration,
+      });
+    } else {
+      await statsRef.set({
+        'roomsCreated': isCreator ? 1 : 0,
+        'roomsJoined': isCreator ? 0 : 1,
+        'studyTimeHours': duration,
+      });
+    }
   }
 
   @override

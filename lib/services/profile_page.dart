@@ -18,6 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   double? _averageRating;
   int _roomsCreated = 0;
   int _roomsJoined = 0;
+  double _studyTimeHours = 0;
 
   int _selectedYear = 1;
   final Map<int, List<Map<String, String>>> _subjectsByYear = {
@@ -91,6 +92,13 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     _roomsJoined = joinedCount;
 
+    // Study time
+    final statsDoc = await FirebaseFirestore.instance.collection('StudentStatistics').doc(uid).get();
+    if (statsDoc.exists) {
+      final statsData = statsDoc.data();
+      _studyTimeHours = (statsData?['studyTimeHours'] ?? 0).toDouble();
+    }
+
     // Average rating
     double totalRating = 0;
     int ratingCount = 0;
@@ -125,7 +133,6 @@ class _ProfilePageState extends State<ProfilePage> {
       },
       SetOptions(merge: true),
     );
-
   }
 
   void _signOut() async {
@@ -214,6 +221,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         _buildStatCard("$_roomsCreated", "Rooms Created"),
                         _buildStatCard("$_roomsJoined", "Rooms Joined"),
+                        _buildStatCard(_studyTimeHours.toStringAsFixed(1), "Hours Studying"),
                       ],
                     ),
                   ),

@@ -62,7 +62,6 @@ class RoomsListScreen extends StatelessWidget {
   }
 
   Future<void> _joinRoom(BuildContext context, String roomId, Map<String, dynamic> roomData) async {
-    //Lógica para meter os participantes na sala
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
@@ -81,6 +80,12 @@ class RoomsListScreen extends StatelessWidget {
         'joinedAt': Timestamp.now(),
       });
 
+      await updateStudyStatistics(
+        user.uid,
+        isCreator: false,
+        durationStr: roomData['duration'],
+      );
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Joined ${roomData['name']}')),
       );
@@ -88,6 +93,47 @@ class RoomsListScreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Already joined this room.')),
       );
+    }
+  }
+
+  Future<void> updateStudyStatistics(String uid, {required bool isCreator, required String durationStr}) async {
+    final statsRef = FirebaseFirestore.instance.collection('StudentStatistics').doc(uid);
+    final snapshot = await statsRef.get();
+
+    double parseDuration(String text) {
+      final lower = text.toLowerCase().replaceAll(' ', '');
+      double hours = 0;
+      double minutes = 0;
+
+      final hourMatch = RegExp(r'(\d+(\.\d+)?)h').firstMatch(lower);
+      final minMatch = RegExp(r'(\d+(\.\d+)?)m').firstMatch(lower);
+
+      if (hourMatch != null) {
+        hours = double.tryParse(hourMatch.group(1)!) ?? 0;
+      }
+      if (minMatch != null) {
+        minutes = double.tryParse(minMatch.group(1)!) ?? 0;
+      }
+
+      return hours + (minutes / 60);
+    }
+
+    final duration = parseDuration(durationStr);
+    if (duration == 0) return;
+
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
+      await statsRef.update({
+        'roomsCreated': data['roomsCreated'] + (isCreator ? 1 : 0),
+        'roomsJoined': data['roomsJoined'] + (isCreator ? 0 : 1),
+        'studyTimeHours': (data['studyTimeHours'] as double) + duration,
+      });
+    } else {
+      await statsRef.set({
+        'roomsCreated': isCreator ? 1 : 0,
+        'roomsJoined': isCreator ? 0 : 1,
+        'studyTimeHours': duration,
+      });
     }
   }
 }
