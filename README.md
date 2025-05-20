@@ -335,11 +335,11 @@ We are partially satisfied about our performance in the sprint 2.
 
 - Scrum board at the end of the Sprint 2 Planning:
 
-![img](images/scrum_board_3/before.png)
+![img](images/scrum_board_3/before.PNG)
 
 - Scrum board after Sprint 2:
 
-![img](images/scrum_board_3/after.png)
+![img](images/scrum_board_3/after.PNG)
 
 - Sprint Review:
 
