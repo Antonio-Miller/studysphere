@@ -214,7 +214,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         _buildStatCard("$_roomsCreated", "Rooms Created"),
                         _buildStatCard("$_roomsJoined", "Rooms Joined"),
-                        _buildStatCard("100", "Hours Studying"),
                       ],
                     ),
                   ),
