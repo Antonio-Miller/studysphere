@@ -334,7 +334,38 @@ We are partially satisfied about our performance in the sprint 2.
 
 ### Sprint 3
 
-### Sprint 4
+- Scrum board at the end of the Sprint 2 Planning:
+
+![img](images/scrum_board_3/before.png)
+
+- Scrum board after Sprint 2:
+
+![img](images/scrum_board_3/after.png)
+
+- Sprint Review:
+
+The demonstration of the product increment was successfully conducted, showcasing new features such as forum creation, a statistics viewer, and colleague rating. However, the app still lacks visual identity, which has been identified as a priority for the future. A release of the increment was published on GitHub
+
+- Sprint Retrospective:
+
+The team worked efficiently, allocating resources wisely and collaborating in parallel to maximize output. We are proud of our approach during this sprint, which reflected a noticeable improvement over previous ones.
+
+- Happiness Meter:
+
+We are partially satisfied about our performance in the sprint 2.
+
+    |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
+    |------------|-----------|------------|----------|--------|
+    | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
+    | **Bernardo** |    ⭐ ️   |    ⭐    |    ⭐️    |   ⭐  |
+    | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
+    | **Pedro**    |     ⭐️   |     ⭐️   |     ⭐️   |   ⭐️  |
+
+*Using the same scale as the Happiness Meter on Moodle.*
+
+
+
+
 
 ### Final Release
 
