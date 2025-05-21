@@ -333,11 +333,11 @@ We are partially satisfied about our performance in the sprint 2.
 
 ### Sprint 3
 
-- Scrum board at the end of the Sprint 2 Planning:
+- Scrum board at the end of the Sprint 3 Planning:
 
 ![img](images/scrum_board_3/before.PNG)
 
-- Scrum board after Sprint 2:
+- Scrum board after Sprint 3:
 
 ![img](images/scrum_board_3/after.PNG)
 
@@ -351,7 +351,7 @@ The team worked efficiently, allocating resources wisely and collaborating in pa
 
 - Happiness Meter:
 
-We are partially satisfied about our performance in the sprint 2.
+We are partially satisfied about our performance in the sprint 3.
 
     |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
     |------------|-----------|------------|----------|--------|
