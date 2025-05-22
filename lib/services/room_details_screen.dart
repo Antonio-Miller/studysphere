@@ -40,7 +40,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     setState(() {
       _participants = snapshot.docs.map((doc) {
         final data = doc.data();
-        data['uid'] = doc.id; // participant doc id for rating updates
+        data['uid'] = doc.id; // vai actualizar as classificacoes dos participantes da room
         return data;
       }).toList();
       _loading = false;
@@ -88,7 +88,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
   final currentRating = (data['rating'] ?? 0).toDouble();
   final ratingCount = (data['ratingCount'] ?? 0);
 
-  // Calculate new average rating
+  // calcula a media de ratings
   final updatedCount = ratingCount + 1;
   final updatedRating = ((currentRating * ratingCount) + newRating) / updatedCount;
 

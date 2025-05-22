@@ -9,16 +9,8 @@ class SignoutPage extends StatefulWidget {
 }
 
 class _SignOut extends State<SignoutPage> {
-  // You can add any state variables you need here
-  String _message = 'Welcome to the Home Page!';
-  final _authen = AuthenticService();
 
-  // Example function to change the message (not used in the current UI)
-  void _updateMessage(String newMessage) {
-    setState(() {
-      _message = newMessage;
-    });
-  }
+  final _authen = AuthenticService();
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +21,11 @@ class _SignOut extends State<SignoutPage> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              await _authen.signOut(); // Call the sign-out method
+              await _authen.signOut(); 
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()),
-              ); // Navigate to the login screen after signing out
+              ); // go to log in screen after sign out cenas basicas
             },
           ),
         ],
@@ -70,7 +62,7 @@ class _SignOut extends State<SignoutPage> {
   }
 
   _signOut() async {
-    await _authen.signOut(); // Call the sign-out method
+    await _authen.signOut(); //o sign out
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginScreen()),

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'RoomChatScreen.dart';
-import 'room_details_screen.dart'; // Import your new RoomDetailsScreen here
+import 'room_details_screen.dart'; // 
 
 class MyRoomsScreen extends StatefulWidget {
   const MyRoomsScreen({super.key});
@@ -65,7 +65,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          // Navigate to the new RoomDetailsScreen with roomId and roomData
+          // go to room dettails depois
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -80,7 +80,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              // Room info expanded in column
+              // aqui vai ter as informacoes expandidas da sala
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
                 ),
               ),
 
-              // Chat button on the right stays the same
+              
               IconButton(
                 icon: const Icon(Icons.chat, color: Colors.blueAccent),
                 tooltip: 'Go to Chat Room',
