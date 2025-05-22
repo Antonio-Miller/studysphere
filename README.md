@@ -22,7 +22,6 @@ This Software Development Report, tailored for LEIC-ES-2024-25, provides compreh
   * [Sprint 1](#Sprint-1)
   * [Sprint 2](#Sprint-2)
   * [Sprint 3](#Sprint-3)
-  * [Sprint 4](#Sprint-4)
   * [Final Release](#Final-Release)
 
 Contributions are expected to be made exclusively by the initial team, but we may open them to the community, after the course, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
@@ -334,7 +333,38 @@ We are partially satisfied about our performance in the sprint 2.
 
 ### Sprint 3
 
-### Sprint 4
+- Scrum board at the end of the Sprint 3 Planning:
+
+![img](images/scrum_board_3/before.PNG)
+
+- Scrum board after Sprint 3:
+
+![img](images/scrum_board_3/after.PNG)
+
+- Sprint Review:
+
+The demonstration of the product increment was successfully conducted, showcasing new features such as forum creation, a statistics viewer, and colleague rating. However, the app still lacks visual identity, which has been identified as a priority for the future. A release of the increment was published on GitHub
+
+- Sprint Retrospective:
+
+The team worked efficiently, allocating resources wisely and collaborating in parallel to maximize output. We are proud of our approach during this sprint, which reflected a noticeable improvement over previous ones.
+
+- Happiness Meter:
+
+We are partially satisfied about our performance in the sprint 3.
+
+    |  Members   |  António  |  Bernardo  | Donovan  | Pedro  |
+    |------------|-----------|------------|----------|--------|
+    | **António**  |    ⭐    |     ⭐   |    ⭐    |   ⭐  |
+    | **Bernardo** |    ⭐ ️   |    ⭐    |    ⭐️    |   ⭐  |
+    | **Donovan**  |    ⭐️    |    ⭐️    |    ⭐️    |   ⭐️  |
+    | **Pedro**    |     ⭐️   |     ⭐️   |     ⭐️   |   ⭐️  |
+
+*Using the same scale as the Happiness Meter on Moodle.*
+
+
+
+
 
 ### Final Release
 
