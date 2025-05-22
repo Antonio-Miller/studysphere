@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'RoomChatScreen.dart';
-import 'room_details_screen.dart'; // 
+import 'room_details_screen.dart'; 
 
 class MyRoomsScreen extends StatefulWidget {
   const MyRoomsScreen({super.key});
@@ -65,7 +65,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          // go to room dettails depois
+          // vai para os detalhes da sala
           Navigator.push(
             context,
             MaterialPageRoute(

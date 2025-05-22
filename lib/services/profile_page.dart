@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
       _selectedSubjects.addAll(selected.cast<String>());
     }
 
-    // Rooms created
+    // Rooms criadas
     final roomsCreatedSnapshot = await FirebaseFirestore.instance
         .collection('StudyRoom')
         .where('creatorUid', isEqualTo: uid)
