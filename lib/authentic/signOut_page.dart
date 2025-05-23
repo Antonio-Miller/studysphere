@@ -42,7 +42,7 @@ class _SignOut extends State<SignoutPage> {
                     child: ElevatedButton(
                       onPressed: _signOut,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
+                        backgroundColor: const Color(0xFF4A6CFF),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

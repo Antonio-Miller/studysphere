@@ -51,10 +51,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: const Color(0xFF4A6CFF),
       appBar: AppBar(
         title: const Text('Nova Dúvida'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: Column(
         children: [
@@ -122,7 +122,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                     child: ElevatedButton(
                       onPressed: _createPost,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
+                        backgroundColor: const Color(0xFF4A6CFF),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

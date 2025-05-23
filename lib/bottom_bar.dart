@@ -24,19 +24,19 @@ class BottomBar extends StatelessWidget {
         iconSize: 35,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle, color: Colors.blueAccent),
+            icon: Icon(Icons.account_circle, color: const Color(0xFF4A6CFF)),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.blueAccent),
+            icon: Icon(Icons.home, color: const Color(0xFF4A6CFF)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.mark_unread_chat_alt, color: Colors.blueAccent),
+            icon: Icon(Icons.mark_unread_chat_alt, color: const Color(0xFF4A6CFF)),
             label: 'Rooms',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.forum, color: Colors.blueAccent),
+            icon: Icon(Icons.forum, color: const Color(0xFF4A6CFF)),
             label: 'Forum',
           ),
         ],

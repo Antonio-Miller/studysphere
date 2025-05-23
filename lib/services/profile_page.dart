@@ -68,14 +68,12 @@ class _ProfilePageState extends State<ProfilePage> {
       _selectedSubjects.addAll(selected.cast<String>());
     }
 
-    // Rooms criadas
     final roomsCreatedSnapshot = await FirebaseFirestore.instance
         .collection('StudyRoom')
         .where('creatorUid', isEqualTo: uid)
         .get();
     _roomsCreated = roomsCreatedSnapshot.docs.length;
 
-    // Rooms joined
     final allRooms = await FirebaseFirestore.instance.collection('StudyRoom').get();
     int joinedCount = 0;
     for (final room in allRooms.docs) {
@@ -85,31 +83,26 @@ class _ProfilePageState extends State<ProfilePage> {
           .collection('Participants')
           .doc(uid)
           .get();
-
       if (participantDoc.exists) {
         joinedCount++;
       }
     }
     _roomsJoined = joinedCount;
 
-    // Study time
     final statsDoc = await FirebaseFirestore.instance.collection('StudentStatistics').doc(uid).get();
     if (statsDoc.exists) {
       final statsData = statsDoc.data();
       _studyTimeHours = (statsData?['studyTimeHours'] ?? 0).toDouble();
     }
 
-    // Average rating
     double totalRating = 0;
     int ratingCount = 0;
-
     for (final roomDoc in roomsCreatedSnapshot.docs) {
       final participantsSnapshot = await FirebaseFirestore.instance
           .collection('StudyRoom')
           .doc(roomDoc.id)
           .collection('Participants')
           .get();
-
       for (final participantDoc in participantsSnapshot.docs) {
         final rating = participantDoc.data()['rating'];
         if (rating != null && rating is num) {
@@ -118,7 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       }
     }
-
     _averageRating = ratingCount > 0 ? totalRating / ratingCount : null;
 
     setState(() {});
@@ -147,19 +139,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF4A6CFF),
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: Drawer(
         child: Column(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blueAccent),
-              child: Center(
+            DrawerHeader(
+              decoration: BoxDecoration(color: const Color(0xFF4A6CFF)),
+              child: const Center(
                 child: Icon(Icons.person, size: 80, color: Colors.white),
               ),
             ),
@@ -167,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 FirebaseAuth.instance.currentUser?.email ?? 'No email',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             const SizedBox(height: 20),
@@ -177,9 +171,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: _signOut,
                 icon: const Icon(Icons.logout),
                 label: const Text("Sign Out"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                ),
               ),
             ),
           ],
@@ -190,8 +181,8 @@ class _ProfilePageState extends State<ProfilePage> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 60),
-                  const Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent),
+                  const SizedBox(height: 40),
+                  const Icon(Icons.person_rounded, size: 100),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -209,20 +200,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 10),
                   Text(
                     _userName!,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20),
 
                   // Statistics
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildStatCard("$_roomsCreated", "Rooms Created"),
-                        _buildStatCard("$_roomsJoined", "Rooms Joined"),
-                        _buildStatCard(_studyTimeHours.toStringAsFixed(1), "Hours Studying"),
-                      ],
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(child: _buildStatCard("$_roomsCreated", "Rooms\nCreated")),
+                            Expanded(child: _buildStatCard("$_roomsJoined", "Rooms\nJoined")),
+                            Expanded(child: _buildStatCard(_studyTimeHours.toStringAsFixed(1), "Hours\nStudying")),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -271,7 +267,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       return CheckboxListTile(
                         title: Text("${subject["acronym"]} - ${subject["name"]}"),
                         value: isSelected,
-                        activeColor: Colors.blueAccent,
+                        activeColor: colorScheme.primary,
                         onChanged: (bool? value) {
                           setState(() {
                             if (value == true) {
@@ -295,11 +291,36 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 Widget _buildStatCard(String number, String label) {
-  return Column(
-    children: [
-      Text(number, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-      const SizedBox(height: 4),
-      Text(label, style: const TextStyle(color: Colors.grey)),
-    ],
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 6),
+    padding: const EdgeInsets.symmetric(vertical: 12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 4,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          number,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF4A6CFF)),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          label,
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
   );
 }

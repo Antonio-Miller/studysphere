@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: const Color(0xFF4A6CFF),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -112,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //here eu vou chamar um metodo chamado signUp que vai fazer o register
                       onPressed: _signUp,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
+                        backgroundColor: const Color(0xFF4A6CFF),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: const Text(
                           'Log In',
                           style: TextStyle(
-                            color: Colors.blueAccent,
+                            color: const Color(0xFF4A6CFF),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
