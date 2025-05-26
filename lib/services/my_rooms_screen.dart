@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'RoomChatScreen.dart';
-import 'room_details_screen.dart'; 
+import 'room_details_screen.dart';
+import 'package:flutter_application_1/bottom_bar.dart';
 
 class MyRoomsScreen extends StatefulWidget {
   const MyRoomsScreen({super.key});
@@ -99,7 +100,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
 
               
               IconButton(
-                icon: const Icon(Icons.chat, color: Colors.blueAccent),
+                icon: const Icon(Icons.chat, color: const Color(0xFF4A6CFF)),
                 tooltip: 'Go to Chat Room',
                 onPressed: () {
                   Navigator.push(
@@ -136,9 +137,12 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('My Rooms'),
-        backgroundColor: Colors.blueAccent,
+        centerTitle: true,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -150,6 +154,7 @@ class _MyRoomsScreenState extends State<MyRoomsScreen> {
                     return _buildRoomCard(_userRooms[index]);
                   },
                 ),
+      bottomNavigationBar: BottomBar(parentContext: context),
     );
   }
 }

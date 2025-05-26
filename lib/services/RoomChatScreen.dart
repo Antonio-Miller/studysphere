@@ -43,7 +43,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isMe ? Colors.blueAccent : Colors.grey[300],
+          color: isMe ? const Color(0xFF4A6CFF) : Colors.grey[300],
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -66,7 +66,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.roomName),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: Column(
         children: [
@@ -105,7 +105,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  icon: const Icon(Icons.send, color: Colors.blueAccent),
+                  icon: const Icon(Icons.send, color: const Color(0xFF4A6CFF)),
                   onPressed: _sendMessage,
                 ),
               ],

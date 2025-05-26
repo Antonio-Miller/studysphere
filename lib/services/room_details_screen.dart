@@ -114,7 +114,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(room['name'] ?? 'Room Details'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -173,7 +173,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         label: const Text('Mark Session as Completed'),
                         onPressed: _markSessionCompleted,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: const Color(0xFF4A6CFF),
                           foregroundColor: Colors.white,
                           minimumSize: const Size(double.infinity, 50),
                         ),
@@ -187,7 +187,7 @@ class _RoomDetailsScreenState extends State<RoomDetailsScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                          color: const Color(0xFF4A6CFF),
                         ),
                       ),
                     ),
