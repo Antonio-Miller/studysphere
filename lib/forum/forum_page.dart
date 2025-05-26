@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../services/chat_page.dart';
 import 'create_post_page.dart';
+import 'package:flutter_application_1/bottom_bar.dart';
 
 class ForumPage extends StatelessWidget {
   const ForumPage({super.key});
@@ -9,9 +10,10 @@ class ForumPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xFF4A6CFF),
         title: const Text('Fórum de Dúvidas'),
         centerTitle: true,
       ),
@@ -76,7 +78,7 @@ class ForumPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
         child: const Icon(Icons.add),
         onPressed: () {
           Navigator.push(
@@ -85,6 +87,7 @@ class ForumPage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: BottomBar(parentContext: context),
     );
   }
 }

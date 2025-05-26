@@ -22,7 +22,7 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Study Room'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -37,7 +37,7 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
             ElevatedButton(
               onPressed: _createRoom,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
+                backgroundColor: const Color(0xFF4A6CFF),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),

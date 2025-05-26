@@ -8,9 +8,10 @@ class RoomsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 190, 206, 245),
       appBar: AppBar(
         title: const Text('Available Rooms'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF4A6CFF),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

@@ -46,7 +46,7 @@ class _ChatRoomState extends State<ChatRoom> {
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isCurrentUser ? Colors.blue[100] : Colors.grey[200],
+                  color: isCurrentUser ? Color.fromARGB(255, 193, 211, 255) : Colors.grey[200],
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(16),
                     topRight: const Radius.circular(16),
@@ -122,7 +122,7 @@ class _ChatRoomState extends State<ChatRoom> {
             ),
             const SizedBox(width: 8),
             CircleAvatar(
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: const Color(0xFF4A6CFF),
               child: IconButton(
                 icon: const Icon(Icons.send, color: Colors.white),
                 onPressed: sendMessage,
@@ -141,8 +141,8 @@ class _ChatRoomState extends State<ChatRoom> {
       appBar: AppBar(
         title: Text(widget.title),
         elevation: 0.5,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
+        backgroundColor: const Color(0xFF4A6CFF),
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Column(
         children: [
