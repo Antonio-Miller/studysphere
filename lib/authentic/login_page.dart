@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       child: const Text(
-                        'Sigin In with Google',
+                        'Sign In with Google',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
