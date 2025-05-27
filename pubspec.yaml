@@ -50,7 +50,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "images/StudyShpere_Icon.png"
+  image_path: "assets/icon/icon.jpg"
 
 
   flutter_test:
