@@ -17,39 +17,57 @@ class _RoomCreationScreenState extends State<RoomCreationScreen> {
   final TextEditingController _durationController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Study Room'),
-        backgroundColor: const Color(0xFF4A6CFF),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            _buildField(_nameController, 'Room Name'),
-            _buildField(_subjectController, 'Subject'),
-            _buildField(_maxStudentsController, 'Max Students'),
-            _buildField(_durationController, 'Duration (e.g., 2h)'),
-            _buildField(_dateController, 'Date & Time'),
-            const SizedBox(height: 20),
-            ElevatedButton(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Create Study Room'),
+      backgroundColor: const Color(0xFF4A6CFF),
+    ),
+    body: SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Enter Room Details',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 24),
+
+          // Fields with consistent spacing
+          _buildField(_nameController, 'Room Name'),
+          const SizedBox(height: 16),
+          _buildField(_subjectController, 'Subject'),
+          const SizedBox(height: 16),
+          _buildField(_maxStudentsController, 'Max Students'),
+          const SizedBox(height: 16),
+          _buildField(_durationController, 'Duration (e.g., 2h)'),
+          const SizedBox(height: 16),
+          _buildField(_dateController, 'Date & Time'),
+          const SizedBox(height: 32),
+
+          // Button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
               onPressed: _createRoom,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF4A6CFF),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
               child: const Text('Create Room'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildField(TextEditingController controller, String label) {
     return Padding(

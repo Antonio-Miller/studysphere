@@ -46,7 +46,7 @@ class _ChatRoomState extends State<ChatRoom> {
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isCurrentUser ? Color.fromARGB(255, 193, 211, 255) : Colors.grey[200],
+                  color: isCurrentUser ? Color.fromARGB(255, 74, 108, 255) : Colors.grey[200],
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(16),
                     topRight: const Radius.circular(16),
@@ -65,18 +65,29 @@ class _ChatRoomState extends State<ChatRoom> {
                   crossAxisAlignment:
                       isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
-                    Text(
+                   Text(
                       message.senderEmail,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
-                        color: Colors.grey[700],
+                        color: isCurrentUser ? const Color.fromARGB(182, 255, 255, 255) : Colors.grey[700],
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                   Text(
+                      message.message,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: isCurrentUser ? const Color.fromARGB(203, 255, 255, 255) : Colors.black,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      message.message,
-                      style: const TextStyle(fontSize: 14),
+                      message.timestamp.toDate().toLocal().toString(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: isCurrentUser ? Colors.white70 : Colors.grey[600],
+                      ),
                     ),
                   ],
                 ),

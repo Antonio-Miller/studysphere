@@ -51,10 +51,20 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
           children: [
             Text(
               message.senderEmail,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: isMe ? const Color.fromARGB(182, 255, 255, 255) : Colors.grey[700],
+                      ),
             ),
             const SizedBox(height: 4),
-            Text(message.message),
+            Text(
+                message.message,
+                style: TextStyle(
+                fontSize: 14,
+                color: isMe ? const Color.fromARGB(203, 255, 255, 255) : Colors.black,
+              ),
+            ),
           ],
         ),
       ),
